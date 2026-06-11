@@ -1,0 +1,87 @@
+On modern Windows 10/11, you can install the built-in **OpenSSH Server**.
+
+### Method 1: PowerShell (Admin)
+
+Open **PowerShell as Administrator** and run:
+
+```powershell
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+```
+
+Start the service:
+
+```powershell
+Start-Service sshd
+```
+
+Enable it at boot:
+
+```powershell
+Set-Service -Name sshd -StartupType Automatic
+```
+
+Allow SSH through the firewall:
+
+```powershell
+New-NetFirewallRule -Name sshd `
+    -DisplayName "OpenSSH Server" `
+    -Enabled True `
+    -Direction Inbound `
+    -Protocol TCP `
+    -Action Allow `
+    -LocalPort 22
+```
+
+Check that it's running:
+
+```powershell
+Get-Service sshd
+```
+
+### Method 2: Settings GUI
+
+1. **Settings** → **Apps** → **Optional Features**
+2. Click **View features**
+3. Search for **OpenSSH Server**
+4. Install it
+5. Open **Services**
+6. Find **OpenSSH SSH Server**
+7. Set Startup Type to **Automatic** and start it
+
+### Connect from Arch Linux
+
+Find the Windows machine's IP:
+
+```powershell
+ipconfig
+```
+
+Then from Arch:
+
+```bash
+ssh username@WINDOWS_IP
+```
+
+Example:
+
+```bash
+ssh John@192.168.1.50
+```
+
+### Verify Port 22 is Listening
+
+On Windows:
+
+```powershell
+netstat -ano | findstr :22
+```
+
+You should see a line showing `LISTENING`.
+
+If you're trying to access the Windows machine from outside your home network, tell me:
+
+* Windows version
+* Whether you're behind a router/NAT
+* Whether you have a VPS/public server
+
+and I can show the safest way to reach it remotely.

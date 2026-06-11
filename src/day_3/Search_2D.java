@@ -1,7 +1,4 @@
-package Day_3;
-
-import javax.swing.text.StyledEditorKit;
-import java.util.Scanner;
+package day_3;
 
 public class Search_2D {
     static void main() {

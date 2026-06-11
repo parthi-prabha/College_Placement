@@ -9,7 +9,7 @@ public class Word_manipulation {
 //        palindrome(s);
 //        string_adder(s);
 //        palindrome2(s);
-        pattern_inverse(s);
+        pattern_inverse1(s);
     }
 
 
@@ -95,16 +95,28 @@ public class Word_manipulation {
             if(ch == s.charAt(i)){
                 count++;
             }else{
-                s1.append(ch);
+                s1.append(ch).append(count);
                 ch = s.charAt(i);
-                s1.append(count);
                 count = 1;
             }
         }
-        s1.append(ch);
-        s1.append(count);
+        s1.append(ch).append(count);
         System.out.println(s1);
     }
 
+    static void pattern_inverse1(String s){
+        StringBuffer s1 = new StringBuffer();
+        int count = 1;
+        for (int i = 1; i < s.length(); i++) {
+            if(s.charAt(i - 1) == s.charAt(i)){
+                count++;
+            }else{
+                s1.append(s.charAt(i - 1)).append(count);
+                count = 1;
+            }
+        }
+        s1.append(s.charAt(s.length() - 1)).append(count);
+        System.out.println(s1);
+    }
 
 }
